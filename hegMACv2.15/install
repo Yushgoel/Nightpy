@@ -1,0 +1,257 @@
+#!/bin/sh
+
+echo 
+echo "HDF-EOS To GeoTIFF Conversion Tool (HEG) Installation"
+echo "----------------------------------------------------------"
+echo 
+echo "To install the HEG Tool:"
+echo 
+echo "1. The heg.tar file must be present in the current directory."
+echo "2. You must know the directory path where the HEG is to be installed."
+echo "3. You must know the path to the Java bin directory on your system."
+echo 
+
+if [ ! -f ./heg.tar ] ; then
+  echo "Error: heg.tar was not found in the current directory."
+  echo
+  echo "HEG installation aborted! Nothing was installed on your system."
+  echo
+  exit 1
+fi
+
+if [ -f ./heg*v2.15.tar ] ; then
+  /bin/rm heg*v2.15.tar
+fi
+
+echo "Do you wish to proceed with the HEG v2.15 installation? [y/n]"
+read choice
+
+if [ X$choice = "X" ] ; then
+  choice=y
+fi
+
+# See if user wants to continue installation
+if [ $choice != "y" -a $choice != "Y" ] ; then
+  echo
+  echo "HEG installation aborted at user request! Nothing was installed on your system."
+  echo
+  exit 2
+fi
+
+echo 
+echo "Where would you like to install HEG?"
+echo 
+echo "  IMPORTANT NOTE:"
+echo "  Be sure to give an absolute directory path, without special characters."
+echo "     For example: /home/faculty/jsmith/heg"
+echo 
+echo "  To install HEG in a subdirectory of the current directory, just press the ENTER key."
+echo
+echo "  Enter the HEG directory path:"
+read heg_home
+
+if [ X$heg_home = "X" ] ; then
+  heg_home=`pwd`/heg
+else
+  echo
+fi
+
+# Check to see if directory exists, then ask again if
+# user wants to proceed with installation.
+if [ -d $heg_home ] ; then
+  echo
+  echo "WARNING: Directory $heg_home already exists."
+  echo "Proceeding with install may overwrite existing files."
+  echo
+  echo "Proceed with install into $heg_home? [y/n]"
+  dir_exist=y
+else
+  dir_exist=n
+  echo "Directory does not exist. Create $heg_home? [y/n]"
+fi
+
+# Make sure user wants to proceed with installation
+read choice
+
+if [ X$choice = "X" ] ; then
+  choice=y
+fi
+
+if [ $choice != "y" -a $choice != "Y" ] ; then
+  echo
+  echo "HEG installation aborted at user request! Nothing was installed on your system."
+  echo
+  exit 3
+fi
+ 
+if [ $dir_exist != "y" ] ; then
+  echo " .....Making directory $heg_home"
+  mkdir $heg_home
+  if [ $? -ne 0 ] ; then
+    echo "ERROR: mkdir failed to execute."
+    echo
+    echo "HDF-EOS To GeoTIFF Conversion Tool (HEG) installation FAILED!"
+    echo
+    exit 4
+  fi
+fi
+
+echo " .....Moving heg.tar to $heg_home"
+current_dir=`pwd`
+mv heg.tar $heg_home
+
+if [ $? -ne 0 ] ; then
+  echo "ERROR: mv failed to execute."
+  echo
+  echo "HDF-EOS To GeoTIFF Conversion Tool (HEG) installation FAILED!"
+  echo
+  exit 5
+fi
+
+echo " .....Untarring heg.tar"
+echo
+cd $heg_home
+tar -xvf heg.tar
+
+if [ $? -ne 0 ] ; then
+  echo
+  echo "ERROR: untar failed to execute."
+  echo
+  echo "HDF-EOS To GeoTIFF Conversion Tool (HEG) installation FAILED!"
+  echo
+  echo "Possible problems:"
+  echo "1. The correct tar executable is not present."
+  echo "2. The heg.tar file is not present in the current directory."
+  echo "3. Do not have write privileges."
+  echo
+  mv $heg_home/heg.tar $current_dir
+  exit 6
+else
+  echo
+  echo " -- Untar executed successfully! --"
+  echo
+  mv $heg_home/heg.tar $current_dir
+fi
+
+echo
+echo "Where is your java bin directory located?"
+echo
+echo "  IMPORTANT NOTE:"
+echo "  Give an absolute path, without special characters."
+echo "     For example: /usr/java/bin"
+echo
+echo "  Enter the path to your java bin directory: "
+read java_home
+
+if [ X$java_home = "X" ] ; then
+  java_home=java
+  echo
+  echo "Testing java version."
+  echo
+  $java_home -version
+   if [ $? -ne 0 ] ; then
+      echo
+      echo "WARNING: $java_home not found."
+      echo
+      echo "   *** Your HEG script will have problems because it can not access JAVA!! ***"
+      echo
+      echo "   You will be able to run HEG from the command line, but you may"
+      echo "   have problems with the HEG GUI.  After installation is completed,"
+      echo "   try running the HEG shell script in the HEG bin directory."
+      echo "   If the GUI does not appear, make sure Java is installed on your system."
+      echo "   Then locate the Java bin directory and reinstall the HEG."
+      echo
+    else
+      echo
+      echo " ***********************************************************************"
+      echo " * IMPORTANT! The Java version must be 64-bit and 1.8 or greater.      *"
+      echo " *                                                                     *"
+      echo " * If your Java version is less than 1.8, ask your sysadmin to install *"
+      echo " * the latest version of Java, and reinstall HEG. Also if your java is *"
+      echo " * 32-bit, the HEG GUI Field image viewing will fail.                  *"
+      echo " ***********************************************************************"
+      echo
+    fi
+else
+  java_home=$java_home/java
+  if [ -f $java_home ] ; then
+    echo
+    echo " -- Found $java_home! -- "
+    echo
+    echo "    .....Testing java version. "
+    echo
+    $java_home -version
+    echo
+    echo " ***********************************************************************"
+    echo " * IMPORTANT! The Java version must be 64 bit and 1.8 or greater.      *"
+    echo " *                                                                     *"
+    echo " * If your Java version is less than 1.8, ask your sysadmin to install *"
+    echo " * the latest version of Java, and reinstall HEG. Also if your java is *"
+    echo " * 32-bit, the HEG GUI Field image viewing will fail.                  *"
+    echo " ***********************************************************************"
+    echo
+  else
+    echo
+    echo "WARNING: $java_home not found."
+    echo
+    echo "   *** Your HEG script will have problems because it can not access JAVA!! ***"
+    echo
+    echo "   You will be able to run HEG from the command line, but you may"
+    echo "   have problems with the HEG GUI.  After installtion is completed,"
+    echo "   try running the HEG shell script in the HEG bin directory."
+    echo "   If the GUI does not appear, make sure Java is installed on your system."
+    echo "   Then locate the Java bin directory and reinstall the HEG."
+    echo
+  fi
+fi
+
+echo "Please enter a username to be used internally by HEG, (e.g. BOB):"
+read user
+
+if [ X$user = "X" ] ; then
+  user=DEFAULT
+fi
+
+cd $heg_home/bin
+/bin/rm -rf HEG
+echo "#!/bin/sh" > HEG
+echo "" >> HEG
+echo "# ****************************************" >> HEG
+echo "# * HEG                                  *" >> HEG
+echo "# * Shell script for running the HEG GUI *" >> HEG
+echo "# ****************************************" >> HEG
+echo "" >> HEG
+echo "cd $heg_home/bin" >> HEG
+echo "" >> HEG
+echo "LD_LIBRARY_PATH=$heg_home/bin" >> HEG
+echo "export LD_LIBRARY_PATH" >> HEG
+echo "" >> HEG
+echo "MRTDATADIR=$heg_home/data" >> HEG
+echo "export MRTDATADIR" >> HEG
+echo "" >> HEG
+echo "PGSHOME=$heg_home/TOOLKIT_MTD" >> HEG
+echo "export PGSHOME" >> HEG
+echo "" >> HEG
+echo "HEGUSER=$user" >> HEG
+echo "export HEGUSER" >> HEG
+echo "" >> HEG
+echo "OMP_NUM_THREADS=1" >> HEG
+echo "export OMP_NUM_THREADS" >> HEG
+echo "" >> HEG
+echo "# Run the HEG Java GUI." >> HEG
+echo "$java_home -Dsun.java2d.d3d=false -DHEGUSER=$user -classpath $heg_home/bin/HEG.jar heg.HEGDriver" >> HEG
+chmod 755 HEG
+echo
+echo
+echo
+echo "          *****************************************************************"
+echo "          *       Congratulations! You have successfully installed        *"
+echo "          * HDF-EOS To GeoTIFF Conversion Tool (HEG) v2.15 on your system! *"
+echo "          *****************************************************************"
+echo
+echo
+echo "          To start HEG, type \"HEG\" at the command line in the        "
+echo "             following directory:                                      "
+echo "                  $heg_home/bin/                                       "
+echo
+exit 0

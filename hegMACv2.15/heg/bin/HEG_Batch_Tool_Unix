@@ -1,0 +1,56 @@
+#! /bin/sh
+ 
+# *******************************************************
+# * HEG_BATCH                                           *
+# * Shell script for running the HEG BATCH script       *
+#                                                       *
+# in this script it is assumed that HEG executables     *
+# are in installed HEG bin directory, and that we are   *
+# processing a file that contains GRIDS/SWATH           *
+# $1 is the input directory to the shell script where   *
+#    the input hdf files are                            *
+# $2 is the output directory where output files go      *
+# $3 is the Template Parameter file                     *
+# $4 is the type of Object for selecting resample,      *
+#    swtif, or gdtif                                    *
+# *******************************************************
+
+echo "START batch process:"
+
+HEGOUT_dir=$2
+if [  ! -d $HEGOUT_dir  ] ; then 
+/bin/mkdir -p $HEGOUT_dir >/dev/null 2>&1 && echo "Directory $HEGOUT_dir created." || echo "Error: Failed to create $HEGOUT_dir directory."; 
+fi
+
+# note for Solaris 11 remove -maxdepth 1 if causes problem
+for i in  `find $1 -maxdepth 1` ; do
+hdffile=`file $i | awk '{print $2}'`
+#note: Solaris 11 shows hdffile as data
+if [ "$hdffile" = "Hierarchical" ] || [ "$hdffile" = "data" ] ; then
+
+sed 's^infile^'$i'^g' $3 > $i.prm
+
+/bin/mv $i.prm $i_1.prm
+
+FULL_FILE=$i
+FILE=${FULL_FILE##*/}
+#echo ${FILE%.*}
+
+sed 's^outfile^'$2/${FILE%.*}_HEGOUT'^g' $i_1.prm > $i.prm
+
+if [ "$4" = "GRID" ] ; then
+./resample -p $i.prm
+fi
+if [ "$4" = "SWATH" ] ; then
+./swtif -p $i.prm
+fi
+if [ "$4" = "MISRGRID" ] ; then
+./gdtif -p $i.prm
+fi
+
+rm -f $i.prm
+rm -f GetAttrtemp_*
+rm -f filetable.temp_*
+
+fi
+done

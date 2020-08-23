@@ -1,0 +1,5 @@
+
+Listing Command Line Options:
+ ./hegtool -h /Volumes/MIND_BACKUP/Night_light_database/H25V07/A2019157.h25v07.h5 -standalone 
+
+ Detected ? at the end of /Volumes/MIND_BACKUP/Night-Light-Research/hegMACv2.15/heg/bin/filetable.temp_63292 in try #1. No problem with this file.

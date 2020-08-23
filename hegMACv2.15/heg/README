@@ -1,0 +1,487 @@
+
+HEG README: last updated 7-March-2019
+---------------------------------------------------------------
+
+The HDF-EOS To GeoTIFF Conversion Tool (HEG) is a tool developed 
+to allow a user to reformat, re-project and perform 
+stitching/mosaicing and subsetting operations on HDF-EOS 
+objects.  The output GeoTIFF file is ingestible into commonly 
+used GIS applications. HEG will also write to HDF-EOS Grid & SWATH formats 
+(i.e. for Subsetting purposes) and native (or raw) 
+binary.  HEG presently works with MODIS (AQUA and TERRA), ASTER, 
+MISR, AIRS, and AMSR-E HDF-EOS data sets, Some HDF-EOS5 grids such as OMI, 
+SMAP L3/L4 HDF5 EASE2 grid, some VIIRS L2 & L3, SRTM binary data, and 
+MOPITT(MOP03JM) products. Please see full list of supported products 
+in HEG web site.
+
+HEG Home Page: (http://newsroom.gsfc.nasa.gov/sdptoolkit/HEG/HEGHome.html)
+---------------------------------------------------------------
+
+Brief Summary of Features include:
+---------------------------------
+- Reprojection 
+- Spatial (geolocation) subsetting
+- Band and Parameter (aka Field) Subsetting of HDF-EOS datasets
+- Support for MODIS, ASTER, MISR, AIRS, AMSR-E, VIIRS, SMAP, MOPITT, OMI, and SRTM
+  (Check List of Supported Products for full details)
+- Format Conversion of various output Format types: GeoTIFF,
+  HDF-EOS GRID & SWATH, HDF-EOS GRID for SRTM products, netCDF for L2 products, 
+  HDF5/HDFEOS5 for SMAP, HDF-EOS5 for OMI, HDFEOS5 for VIIRS
+  MultiBand GeoTIFF, Multi-Band HDF-EOS GRID & SWATH, and native binary.
+- Format Conversions without reprojection or manipulation of
+  input data. Allows data to remain in original unaltered state.
+- Stitching (or mosaicing) HDF-EOS SWATH and GRID datasets
+- Stitching with combinations of
+  Reformatting/Reprojection/Subsetting Operations
+- Data subsampling
+- Control of various parameters including output pixel
+  resolution and output projection parameters
+- Metadata preservation and creation
+- Java GUI
+- Command-line interface (Useful for running batch jobs. This is
+  usually seen in automated production environments where large
+  quantities of granules are processed.) 
+- Internal batch run for large quantities of granules.
+- Supported Platforms:  LINUX64, WINDOWS, and MAC OSX (High Sierra)
+
+New Features/problem fixes for v2.15:
+-------------------------------------
+1) Support for new products
+      - AIRS2RET
+      - MOPITT
+      - VIIRS (VNP13A2, VNP13A3, VNP13C1,VNP14A1,  VNP15A2H, VNP21A1D, VNP21A1N, VNP21A2, VNP29,  VNP43I1,
+         VNP43I2, VNP43I3, VNP43I4, VNP43IA1, VNP43IA2, VNP43IA3, VNP43IA4, VNP43M1, VNP43M2, VNP43M3, VNP43M4,
+         VNP43MA1, VNP43MA2,VNP43MA3, VNP43MA4)
+      - AST_L1T
+2) Batch processing added in HEG Stitch GUI process
+3) Stitching support for SRTM and VIIRS
+4) Support for CF Conventions for SMAP L4 products
+5) Field Image for Spatial subset support was only provided for GRID products. Now SWATH products are also 
+    supported.
+6) Geolocated image was provided only for Sinusoidal Tiles. This version displays the geolocated image of the 
+ input file for SWATH and other non-sinusoidal projections as well
+7) Other bug fixes including fixes to the conversion script in batch process on Windows
+
+New Features/problem fixes for v2.14:
+-------------------------------------
+ 1) More bug fixes concerning issues with multiple runs, output GeoTIFF reading problems by some GIS tools, 
+ 2) Improvement in GUI user interaction concerning field images used for subsetting Lat/Lon settings
+            -  HDFEOS5 products
+            -  Swath products
+ 3) Support for LINUX 32
+ 4) Support for some new products
+        o SMAP-S: Combined SMAP and Sentinel data for high-resolution Soil Moisture product 
+        o SRTM (Enhanced Shuttle Land Elevation Data from Shuttle Radar Topography Mission) binary data at LPDAAC: 
+           - SRTMGL1   (1-arc-second)
+           - SRTMIMGR  (1-arc-second)
+           - SRTMIMGM  (1-arc-second)
+           - SRTMGL3    (3 arc-second) 
+           - SRTMGL3S  (3 arc-second) 
+           - SRTMGL30  (30 arc-second)
+ 
+        o VIIRS VNP10, VNP30, VNP21, and VNP14 L2 data
+        o VIIRS VNP09A1, VNP09H1, VNP09GA, VNP13A1 and VNP09CMG L3 data
+          (In addtion to these VIIRS L3 products, the shortnames for other VIIRS
+           L3 products are added to HEG. These products may also work with HEG
+           when they become available and have structure similar to VNP09A1 or 
+           VNP09CMG. At the time of this release samples for only 5 L3 products 
+           were available for testing.)
+5)      netCDF output for L2 products
+6) 	MODIS/VIIRS Sinusoidal tile location image
+7)      Support for more than 20 Ellipsodal/Spherical Earth models/Datums
+8) 	Support for Solaris 11 was dropped becuase of compiler problems
+
+New Features/problem fixes for v2.13:
+-------------------------------------
+ 1) 	More bug fixes concerning issues with multiple runs, output GeoTIFF
+ 	reading problems by some GIS tools, Subsetting MISR to requested
+ 	area (after stitching needed blocks), hang-up for some MISR
+ 	products, Stitch problems with MODIS swath granules, Better
+ 	interpolation for swath conversion  
+ 2) 	Improvement in GUI user interaction concerning field images for 3-D
+ 	and 4-D fields used for subsetting Lat/Lon setting
+ 3) 	Support for Windows 8 and 10 and Solaris 11 (32-bit)
+ 4) 	Internal batch processing for large quantities of granules from the
+ 	same product.
+ 5) 	Support for some new products
+	o PL3FTA: SMAP L3 Radar Northern Hemisphere Daily 3 km EASE-Grid
+ 	Freeze/Thaw State
+	o SPL3SMA: SMAP L3 Radar Global Daily 3 km EASE-Grid Soil Moisture
+	o SPL3SMP: SMAP L3 Radiometer Global Daily 36 km EASE-Grid Soil Moisture
+	o SPL3SMAP: SMAP L3 Radar/Radiometer Global Daily 9 km EASE-Grid Soil
+ 	Moisture
+	o SPL4SMAU: SMAP L4 Global 3-hourly 9 km Surface and Rootzone Soil
+ 	Moisture Analysis Update
+	o SPL4SMGP: SMAP L4 Global 3-hourly 9 km Surface and Rootzone Soil
+ 	Moisture Geophysical Data
+	o SPL4SMLM: SMAP L4 Global 9 km Surface and Rootzone Soil Moisture
+ 	Land Model Constants
+	o SPL4CMDL: SMAP L4 Global Daily 9 km Carbon Net Ecosystem Exchange
+	o MOD09_L2: MODIS Terra Level 2 surface reflectance
+	o MYD09_L2: MODIS Aqua Level 2 surface reflectance
+	o MOD04_3K: MODIS Terra Near Real Time NRT Level 2 aerosol product
+	o MYD04_3K: MODIS Aqua� Near Real Time NRT Level 2 aerosol product
+	o AE_SID Level-3 gridded product: AMSR-E/Aqua Daily L3 6.25 km Sea
+ 	Ice Drift Polar Grids (sea ice speed and direction)
+	o MISR_HR_TIP MISR SOM grid with Unstacked blocks
+	o MISR_HR_RPV MISR SOM grid with Unstacked blocks
+	o MISR_HR_BRF MISR SOM grid with Unstacked blocks
+6) 	Subsetted Swath outputs for Swath inputs with hdf-eos output
+ 	requests
+7)	HEG source code branching for HDF5 and HDF-EOS5 for quick support
+ 	of other HDF5 and HDF-EOS5 products in future
+8)	Inclusion of Time field with geofields when swath output is
+ 	requested.
+9)	Support for Lambert Azimuthal Equal Area projection in GCTP for
+ 	Ellipsoidal earth model (WGS84), for support of SMAP EASE2 grid
+ 	products
+	
+
+New Features/problem fixes for v2.12:
+-------------------------------------
+ 1) More bug fixes concerning performance issues when default
+    values are used for some output projections such as Lambert   
+    Azimuthal, Lambert Conformal Conic, Transverse Mercator, 
+    Polar Stereographic
+ 2) Improvement in GUI user interaction concerning subsetting and
+    resampling
+   - Selected Field image for grids and getting subset corners
+     by dragging mouse on the image
+   - row/column subsetting in addition to lat/lon subsetting
+   - resetting default subset corners after changes made to
+     subset corners
+   - default and selected pixel size view along with the
+     appropriate units for the selected projection 
+ 3) Fixes for better handling of output UTM and State Plane
+    Projection.
+ 4) Reading parameter file and auto filling of windows in GUI
+ 5) Support for 5 and 6 dimensional MISR grid files
+ 6) Performance improvement for grid conversions(Chunk input
+    reading instead of line-by-line reading of input field data)
+ 7) Preserving input datum for output projection
+ 8) Internal chunking and compressing of output hdf-eos files  
+    for small size outputs
+ 9) Support of HEG for MAC Intel (developed and tested on   
+     Mountain Lion)
+10) Allowing to stitch all 180 MISR SOM blocks if memory is
+    available.
+11) More fixes for bugs reported by users or discovered during
+    testing
+   - Same input/output pixel numbers for EASE grid when No-
+     Reprojection is used (AMSR_E Daily Snow)
+   - MOD11_L2 version 5 support
+   - Opening of MODIS Sinusoidal grid files containing edge tile
+   - Add ellipsoid code for State Plane projected output
+   
+New Features/problem fixes for v2.11:
+-------------------------------------
+1) Numerous bug fixes concerning performance issues when default
+   values are used for some output projections such as Lambert
+   Azimuthal, Lambert Conformal Conic, Transverse Mercator,  
+   Polar Stereographic
+2) Improvement in GUI error checking/user interaction.
+3) Fixes for better handling of output UTM and State Plane
+   Projection.
+
+New Features/problem fixes for v2.10:
+-------------------------------------
+1) Added support for
+      - AMSR-E Daily 25 Km Sea Ice AE_SI25
+      - AMSR-E Daily land AE_Land3
+      - MOD29E1D
+      - Tested many new products and updated the list of
+        Hegable MODIS, ASTER, AIRS, MISR, and AMSR-E
+        products in HEG Users Guide and HEG web site
+2) Added new projection Cylindrical Equal Area (CEA)to support  
+   AMSR-E Daily Land product.
+3) Made it possible to output all fields in a file to a single 
+   HDF-EOS output when HDF-EOS output is requested.
+4) Resolved problems with several products such as MOD43C3, 
+   MOD10CM, MOD29P1N, AE_RnGd, AE_Rain, 
+5) Support for pixel resampling for gridded data with no 
+   reprojection
+6) Correcting sphere radius written to outputs for MODIS SIN 
+   grids
+7) Resolving problems
+     - with band selection in stitch GUI
+     - with unneeded resetting of projection parameters for
+       multiband geotiff
+     - with occasional core dump (runs that take long time to
+       complete)in Datapool HEGserver
+
+
+New Features/problem fixes for v2.9:
+------------------------------------
+1) Added support for 
+	- ASTER 07XT�: ASTER On-Demand L2 Surface Reflectance VNIR
+	- ASTER 09XT�: ASTER On-Demand L2 Surface Radiance VNIR
+	- AMSR-E Rain: AMSR-E/Aqua L2B Global Swath Rain Rate/Type
+        GSFC Profiling Algorithm
+	- AMSR-E Weekly Ocean: AMSR-E/Aqua Weekly L3 Global
+        Ascending/Descending .25x.25 deg Ocean
+	- AMSR-E Monthly Ocean: AMSR-E/Aqua Monthly L3 Global
+        Ascending/Descending .25x.25 deg Ocean Grids
+	- AMSR-E 5 Day Sow: AMSR-E/Aqua 5 Day L3 Global Snow
+        Water Equivalent EASE-Grids
+	- AMSR-E Monthly Snow: AMSR-E/Aqua Monthly L3 Global Snow
+        Water Equivalent EASE-Grids
+	- AMSR-E Daily 12 Km Sea Ice: AMSR-E/Aqua daily L3 12.5 km
+        Tb, Sea Ice Conc., & Snow Depth Polar Grids
+	- AMSR-E Daily 6 Km Sea Ice: AMSR-E/Aqua Daily L3 6.25 km
+        89 GHz Brightness Temperature (Tb) Polar Grids
+	- AMSR-E Rain Grid: AMSR-E/Aqua Monthly L3 5x5 deg
+        Rainfall Accumulations
+2) Creation of Multiband files in Datapool, when the field is
+   multiband
+3) Interpolation correction with AIRS products containing
+   fillvalue in the data fields
+4) Pixel size unit correction for (consistency) in conversion
+   and stitch GUIs.
+5) Correction for dropping a column when stitching MODIS SIN
+   tiles.
+6) Correction to ignoring of Geographic pixel size and
+   processing with default pixel size
+7) Spatial subsetting fix for global AMSR-E granules, and
+   subsetting support for other AMSR-E products
+8) Correction for ignoring re-projection interpolation type NN
+   after stitching
+
+New Features/problem fixes for v2.8:
+------------------------------------
+1) Addition of Albers Projection.
+
+
+New Features/problem fixes for v2.7:
+------------------------------------
+1) Support for AMSR-E L3 GRID products in Polar Stereographic
+   and EASE-Grid projections.
+
+
+New Features/problem fixes for v2.6:
+------------------------------------
+1) Support for all AMSR-E L2 SWATH products and AMSR-E L3 GRID
+   (in Geographic projection).
+2) Correction for ASTER DEM products.  Presently, the sides of
+   the output GeoTIFF image are cut off due to missing data in 
+   the internal geolocation fields of the ASTER DEMs.
+   Since the geolocations are in a path-oriented UTM GRID (even
+   though it's a SWATH product), the missing geolocations could
+   then be accurately interpolated.
+3) New "Subsetter" functionality for Parameters (aka Fields).
+   This results in:
+   a) Output to HDF-EOS SWATH from input HDF-EOS SWATH (i.e. for
+      ASTER SWATH, MODIS SWATH).
+      This allows for output data which is unaltered from a
+      projection operation - for input of HDF-EOS SWATH data. 
+   b) Output to HDF-EOS GRID from input HDF-EOS GRID without any
+      projection operation or altering of input data.
+ 
+   "Subsetter" functionality allows for the creation of
+   smaller data sets from large input HDF-EOS SWATH or GRID
+   data sets. (Many HDF-EOS data granules are quite large.)
+   This is done by selecting a smaller selection of Fields
+   from the full list available in the input. A NO_REPROJECTION   
+   option is performed so that output data values are unaltered 
+   from the input.
+
+   "Subsetter" functionality can also be used in combination
+   with reprojection, spatial subsetting, pixel size 
+   manipulation, etc.
+
+4) Output of Multi-Band HDFEOS data sets (multiple bands in one
+   output HDF-EOS file; previously, HEG only outputs one
+   band/field per HDF-EOS output file).  Multiple bands are
+   placed in one Object in the HDF-EOS data set.
+
+5) Support of HDF-EOS data which has slight (but important)
+   discrepancies in the HDF-EOS standard:
+
+   - Support for MOD43C1, MOD43C2, MOD43C3, MCD43C1, MCD43C2,
+     MCD43C3, MOD12C1, MYD12C1,  
+     These data sets incorrectly define the corner points of the
+     GRID in DD instead of DMS units.  
+     HDF-EOS readers will not be able to read these data unless
+     they make modifications for this non-standard compliance.
+   - Support of MOD11_L2.  These data use incorrect fillvalues
+     in the Lat/Lon geolocations.
+     The data incorrectly uses -999.0 when the internal metadata
+     specifies that fillvalues are -999.9.
+
+6) Support for AIRS L3 products (in Geographic projection).
+7) Support for MISR L3 products (in Geographic projection).
+
+
+Let us know if you have particular interest in some of the above
+or if you have other suggestions!  We appreciate your feedback.
+
+Support Email:           support@earthdata.nasa.gov
+
+---------------------------------------------------------------
+
+
+
+If you find any bugs, please let us know ASAP.  We like to keep
+the code as stable as possible which can be difficult with support 
+of a large number of data products and quite a bit of functionality 
+in the software.  We appreciate your help!
+ 
+Support Email:           support@earthdata.nasa.gov
+
+---------------------------------------------------------------
+
+MISC.
+============
+1)  The very useful HDF-EOS Forum that has been shut down for
+ some time(http://hdfeos.gsfc.nasa.gov/hdfeos/forum/index.cfm)
+ is resurrected and users are able to submit questions/answers
+ since October 2009. please visit www.hdfeos.org for Forum
+ registration.
+
+Please also visit the HEG Home Page for announcements and
+ helpful information.
+(http://newsroom.gsfc.nasa.gov/sdptoolkit/HEG/HEGDownload.html)
+
+---------------------------------------------------------------
+
+DOWNLOAD INSTRUCTIONS FOR THE HEG SOFTWARE:
+-------------------------------------------
+
+The tar files follow this format:
+
+hegLNX64v2.15.tar.gz - built on Linux Red Hat 6 (Linux
+                     2.6.32 X86-64 kernel)
+hegMACv2.15.tar.gz - built on Macintosh OSX High Sierra (Darwin Kernel
+                     Version 17.7.0 X86-64)
+hegWINv2.15.zip - built on Windows 7 (32 bit application for MS Windows)
+
+All Java code built using 64 bit Java Version jdk1.8 or higher- You will need 
+Java jre8 or higher on your system to run HEG.
+
+
+PRIMARY DOWNLOAD SITE (browser download):
+------------------------------------------
+The primary download site is now at the HEG HOME Page:
+(http://newsroom.gsfc.nasa.gov/sdptoolkit/HEG/HEGDownload.html)
+
+
+ALTERNATE DOWNLOAD SITE 
+--------------------------------------------------
+
+https://observer.gsfc.nasa.gov/ftp/edhs
+
+In this directory are version 2.15 HEG release, in addition to some old 
+releases.  They are as follows:
+
+HEG_README_v2.15              - This Readme file.
+README_INSTALL_Win_v2.15      - Installation procedure for Windows 
+hegLNX64v2.15.tar.gz            - HEG for the Linux system.
+hegWINv2.15.zip               - HEG for Windows 7 and 10.
+hegMACv2.15.tar.gz            - HEG for MAC OSX system.
+HEG_UsersGuide_v2.15.doc      - HEG Users Guide in MS-Word format.
+HEG_UsersGuide_v2.15.pdf      - HEG Users Guide in Pdf format.
+
+The Users Guide is also in html format in the help section of
+the HEG GUI.
+----------------------------------------------------------------
+
+INSTALLATION INSTRUCTIONS FOR THE HEG SOFTWARE:
+
+There are two ways to install HEG on your system:
+1. Run the install script
+2. Manually install HEG
+
+IMPORTANT: Before installing HEG, make sure you have Java 1.8 or 
+greater installed on your system.
+
+1. RUNNING THE INSTALL SCRIPT
+------------------------------
+* Uncompress and extract the files contained in the tar file.
+
+gunzip hegLNX64v2.15.tar.gz
+tar -xvf hegLNX64v2.15.tar
+     OR
+gunzip hegMACv2.15.tar.gz
+tar -xvf hegMACv2.15.tar
+
+NOTE: Once the install script runs, it will automatically remove 
+heg<LNX/MAC>.tar from your current directory. If you want to
+backup this file, now is the time to do so. 
+
+* Run the install script
+
+  ./install
+
+  NOTE: The install script will ask you a series of questions to 
+  assist you in installing HEG on your system
+
+* Once HEG is installed, go to the directory in which you  
+  installed HEG, go to the bin directory, and invoke the HEG 
+  script to load up the HEG GUI.
+
+For example, if HEG is installed in /home/bob/heg,
+
+cd /home/bob/heg/bin
+./HEG
+
+* ENJOY!
+
+
+2. MANUALLY INSTALL HEG
+------------------------
+Make a heg directory in your home directory:
+
+cd $HOME
+mkdir heg
+
+Change to the heg directory and copy the tar file to that location.
+
+cd heg
+mv (location of tar file/heg<LNX64/MAC>v2.15.tar.gz .
+
+Uncompress and extract the files contained in the tar file.
+
+gunzip hegLNX64v2.15.tar.gz
+tar -xvf hegLNX64v2.15.tar
+     OR
+gunzip hegMACv2.15.tar.gz
+tar -xvf hegMACv2.15.tar
+
+After uncompressing and extracting, you will get two files, install and heg.tar. 
+Ignore the install file.
+
+Extract the files contained in the heg.tar file and start HEG.
+
+tar -xvf heg.tar
+
+cd bin
+./HEG
+
+HEG has been installed and should be running.
+
+NOTE: If you are having problems starting HEG (when typing HEG
+ on the command line, then check that the directory path to JAVA
+ on the local machine is correct. Also, check that the paths in
+ the environment variables are correct.
+
+
+Installation on Windows WINDOWS 7, and 10
+---------------------------------------------
+
+1.  Place appropriate zip file hegWINv2.15.zip in a directory that
+    does NOT HAVE SPACES in the directory pathname.  HEG will be
+    installed under this path tree.
+2.  Install java (jdk1.8.* (jre8) or newer windows version).
+3.  Unzip hegWINv2.15.zip to the current directory. 
+4.  Double click on install.bat and follow the instruction in
+    MS-DOS window that appears. 
+5.  A file HEGTool.bat will be created by the installation in
+    HEG\HEG_Win\bin directory. 
+6.  Go to this bin directory, where HEGTool.bat file is, and
+    right click on HEGTool.bat. Click on the Create Shortcut. 
+    You can change the icon for this shortcut as in step 7.
+7.  Right click on the HEGTool.bat Shortcut. Click on the
+    Properties and then click on the Change Icon. Now click on
+    Browse and select the file "heg.ico" in the HEG_Win\bin
+    directory.
+8.  To run HEG Double click on the created shortcut(s) or the
+    HEGTool.bat in the HEG_Win\bin directory.

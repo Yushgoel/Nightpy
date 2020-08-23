@@ -1,0 +1,102 @@
+
+*************************************
+HEG-Modis Reprojection Tool
+Start Time:  Tue Jul 21 10:43:07 2020
+
+**************************************
+
+Listing Command Line Options:
+ ./resample -p HegPrm.prm_yush 
+
+***** Starting Run #1 *****
+ Detected ? at the end of /Volumes/MIND_BACKUP/Night-Light-Research/hegMACv2.15/heg/bin/filetable.temp_63394 in try #1. No problem with this file.
+Input image and reprojection info
+---------------------------------
+
+input_filename:          /Volumes/MIND_BACKUP/Night_light_database/H25V07/A2019157.h25v07.h5
+output_filename:         /Volumes/MIND_BACKUP/Night_light_database/H25V07/A2019157.h25v07_VNP_Grid_DNB.tif
+object_name:             VNP_Grid_DNB
+field_name:              DNB_At_Sensor_Radiance_500m
+input_filetype:          HDF-EOS5
+output_filetype:         GEOTIFF
+input_projection_type:   GEO
+output_projection_type:  GEO
+output_ellipsoid:        WGS84
+resampling_type:         BI
+input projection parameters:  0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 
+output projection parameters: 6378137.00 6356752.31 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 
+
+input image corners (lat/lon):
+    UL:  20000000.00 70000000.00 
+    UR:  20000000.00 80000000.00 
+    LL:  10000000.00 70000000.00 
+    LR:  10000000.00 80000000.00 
+
+input image spatial subset corners (lat/lon):
+    UL:  20.00000000 70.00000000 
+    UR:  20.00000000 80.00000000 
+    LL:  10.00000000 70.00000000 
+    LR:  10.00000000 80.00000000 
+
+     band	                select   type lines smpls pixsiz_x  pixsiz_y        min    max   fill
+  1) DNB_At_Sensor_Radiance_500m	   1 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+  2) Sensor_Zenith             	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+  3) Sensor_Azimuth            	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+  4) Solar_Zenith              	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+  5) Solar_Azimuth             	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+  6) Lunar_Zenith              	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+  7) Lunar_Azimuth             	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+  8) Glint_Angle               	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+  9) UTC_Time                  	   0  FLOAT  2400  2400 0.004167  0.004167       0.00       0.00    -999.90
+ 10) QF_Cloud_Mask             	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 11) QF_DNB                    	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 12) Radiance_M10              	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 13) Radiance_M11              	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 14) BrightnessTemperature_M12 	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 15) BrightnessTemperature_M13 	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 16) BrightnessTemperature_M15 	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 17) BrightnessTemperature_M16 	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 18) QF_VIIRS_M10              	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 19) QF_VIIRS_M11              	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 20) QF_VIIRS_M12              	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 21) QF_VIIRS_M13              	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 22) QF_VIIRS_M15              	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 23) QF_VIIRS_M16              	   0 USHORT  2400  2400 0.004167  0.004167      0      0      65535
+ 24) Moon_Phase_Angle          	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+ 25) Moon_Illumination_Fraction	   0  SHORT  2400  2400 0.004167  0.004167      0      0     -32768
+ 26) Granule                   	   0  UCHAR  2400  2400 0.004167  0.004167      0      0        255
+
+ 
+Note: In some special cases (such as using No-Resample) the following ncols & nrows values may be ignored.
+Output Pixel Size:          0.004167
+Output Grid ncols:          2400
+Output Grid nrows:          2400
+ 
+BIResample : processing band DNB_At_Sensor_Radiance_500m
+% complete (2400 rows): 0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+
+Output image info
+-----------------
+output image corners (lat/lon):
+    UL:  20.00000000 70.00000000 
+    UR:  20.00000000 80.00000000 
+    LL:  10.00000000 70.00000000 
+    LR:  10.00000000 80.00000000 
+
+output image corners (X-Y projection units):
+    UL:  70.00000000 20.00000000 
+    UR:  80.00000000 20.00000000 
+    LL:  70.00000000 10.00000000 
+    LR:  80.00000000 10.00000000 
+
+     band      type lines smpls xpixsize    ypixsize    min    max   fill
+  1) DNB_At_Sensor_Radiance_500m USHORT  2400  2400 0.004167    0.004167       0      0  65535
+
+***********************************************
+Ending Time:  Tue Jul 21 10:44:47 2020
+
+Finished processing! 
+CPU time = 100.1 seconds.
+Elapsed time = 100.0 seconds.
+***********************************************
+Job completed....

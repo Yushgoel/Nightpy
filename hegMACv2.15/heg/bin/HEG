@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# ****************************************
+# * HEG                                  *
+# * Shell script for running the HEG GUI *
+# ****************************************
+
+cd /Volumes/MIND_BACKUP/Night-Light-Research/hegMACv2.15/heg/bin
+
+LD_LIBRARY_PATH=/Volumes/MIND_BACKUP/Night-Light-Research/hegMACv2.15/heg/bin
+export LD_LIBRARY_PATH
+
+MRTDATADIR=/Volumes/MIND_BACKUP/Night-Light-Research/hegMACv2.15/heg/data
+export MRTDATADIR
+
+PGSHOME=/Volumes/MIND_BACKUP/Night-Light-Research/hegMACv2.15/heg/TOOLKIT_MTD
+export PGSHOME
+
+HEGUSER=yush
+export HEGUSER
+
+OMP_NUM_THREADS=1
+export OMP_NUM_THREADS
+
+# Run the HEG Java GUI.
+/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/bin//java -Dsun.java2d.d3d=false -DHEGUSER=yush -classpath /Volumes/MIND_BACKUP/Night-Light-Research/hegMACv2.15/heg/bin/HEG.jar heg.HEGDriver

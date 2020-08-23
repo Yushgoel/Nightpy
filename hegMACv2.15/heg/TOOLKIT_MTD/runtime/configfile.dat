@@ -1,0 +1,16 @@
+# The numbers 10120-10123 are used in TD tools. They should not be changed #
+10123|TRMM UTCF value|0.0
+10120|ADEOS-II s/c reference time|0.0
+10121|ADEOS-II ground reference time|0.0
+10122|ADEOS-II s/c clock period|0.0
+#
+#-----------------------------
+# MET test configuration parms
+#-----------------------------
+5991|TEST_PARM|1,2,3,4,5
+5992|TEST_PARM_FLOAT|99.9
+5993|TEST_PARM_STRING|SAT_0
+5994|TEST_PARM_STRINGS|"SAT_1 is","a satellite"
+5995|EOS_PLATFORM|OTD
+5996|TEST_PARM_DOUBLE|0.0546781045
+?
