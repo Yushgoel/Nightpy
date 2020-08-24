@@ -1,6 +1,10 @@
 # Nightpy
 Code for using VIIRS Night Light Data
 
+Earth At Night - Credits Blue Marble ![Earth at Night in 2012](https://github.com/Yushgoel/Nightpy/blob/master/earth_at_night_credits_blue_marble.png?raw=true)
+
+
+
 # Jupyter notebooks
 
 <b>Concise_research.ipynb</b> - Contains code for regression between Night Light and GDP (scroll to end). Picked 21 cities for regression and present results.
